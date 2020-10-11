@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<%- include('partials/head') %>
+<body>
+    <div class="row">
+        
+            <% for (let i = 0; i<peliculas.length; i++) { %>
+                <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title"><%=peliculas[i].title %></h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><%=peliculas[i].rating %></li>
+                    <li class="list-group-item"><%=peliculas[i].awards %></li>
+                    <li class="list-group-item"><%=peliculas[i].release_date %></li>
+                    <li class="list-group-item"><%=peliculas[i].length %></li>
+                    </ul>
+                </div>
+            </div> 
+
+             <% } %>
+        </div>
+    
+    
+</body>
+</html>

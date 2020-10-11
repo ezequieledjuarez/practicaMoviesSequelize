@@ -4,11 +4,15 @@ module.exports = {
     all: (req,res)=>{
         db.Peliculas.findAll()
         .then(peliculas =>{
-            res.send(peliculas)
+            return res.render("movies", {
+                peliculas: peliculas,
+                title: 'Listado de peliculas'
+            })
         })
         .catch(e=>{
             res.send(e)
         })
+      
     },
     detail:(req,res)=>{
         db.Peliculas.findByPk({
