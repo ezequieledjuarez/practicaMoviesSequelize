@@ -1,3 +1,5 @@
+//Exporto las configuraciones
+
 module.exports = {
   "development": {
     "username": "root",

@@ -1,6 +1,8 @@
+//Un modelo es una función que debe exportarse
+
 module.exports = (sequelize,dataTypes) => {
 
-    let alias = "Peliculas"
+    let alias  = "Peliculas"
 
     let cols = {
         id : {
@@ -37,7 +39,7 @@ module.exports = (sequelize,dataTypes) => {
     }
 
     let config = {
-        tableName: "movies",
+        tableName: "movies", //nombre de la tabla
         timestamps: true,
         underscored: true
     }
@@ -45,9 +47,9 @@ module.exports = (sequelize,dataTypes) => {
 
     const Movie = sequelize.define(alias,cols,config)
 
-
+//Despues de definir el modelo, colocamos las asociaciones
     Movie.associate = function(models){
-        Movie.hasMany(models.Generos, {
+        Movie.belongsTo(models.Generos, {
             as: "genero",
             foreignKey: "genre_id"
         }),
@@ -59,6 +61,6 @@ module.exports = (sequelize,dataTypes) => {
             timestamps:false
         })
     }
-    return Movie
+   return Movie
 
 }
