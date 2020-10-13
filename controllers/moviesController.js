@@ -27,14 +27,21 @@ module.exports = {
             res.send(e)
         })
     },
+
+    viewCreate:(req,res)=>{
+      res.render("createMovie", {
+        title: 'Crear peliculas'
+      })
+    },
     create:(req,res)=>{
         db.Peliculas.create({
             title: req.body.title,
             rating: req.body.rating,
             awards: req.body.awards,
             length: req.body.duracion,
-            release_date: req.body.fechaDeEstreno
-        })
+            release_date: req.body.release_date
+        }),
+        res.redirect('/movies')
     },
     edit:(req,res)=>{
         db.Peliculas.update({
