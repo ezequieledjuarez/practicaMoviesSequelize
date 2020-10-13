@@ -10,6 +10,8 @@ router.post('/create',moviesController.create)
 router.get('/edit/:id', moviesController.viewEdit)
 router.put('/edit/:id', moviesController.edit)
 router.delete('/delete/:id', moviesController.delete)
+router.get('/new', moviesController.new)
+router.get('/recommended', moviesController.recommended)
 /*router.get('/recommended', moviesController.recommended)
 router.post('/search', moviesController.search)*/
 

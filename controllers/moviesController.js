@@ -1,4 +1,6 @@
 let db = require('../db/models')
+const Sequelize = require('sequelize')
+let Op = Sequelize.Op;
 
 module.exports = {
     all: (req,res)=>{
@@ -79,5 +81,35 @@ module.exports = {
             }
         })
         res.redirect('/movies')
+    },
+    new:(req,res)=>{
+        db.Peliculas.findAll({
+            limit: 5,
+            order:[
+                ['release_date',
+                'DESC'
+            ]
+
+            ]
+        })
+        .then(peliculas=>{
+            res.send(peliculas)
+        })
+        .catch(e=>{
+            res.send(e)
+        })
+    },
+
+    recommended:(req,res)=>{
+        db.Peliculas.findAll({
+            where:{
+                awards:{
+                    [Op.gte]: 8
+                }
+            }
+        })
+        .then(peliculas=>{
+            res.send(peliculas)
+        })
     }
 }
