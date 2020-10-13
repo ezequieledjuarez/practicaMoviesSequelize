@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+<body>
+    <div class="row">
+            <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title"> Titulo: <%=pelicula.title %></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">Rating: <%=pelicula.rating %></li>
+                <li class="list-group-item">Premios: <%=pelicula.awards %></li>
+                <li class="list-group-item">Fecha de Lanzamiento: <%=pelicula.release_date %></li>
+                <li class="list-group-item">Duracion: <%=pelicula.length %></li>
+                </ul>
+            </div>
+        </div> 
+    </div>
+    <a href="/movies/edit/<%=pelicula.id%>">
+    <button class="btn btn-warning">Editar</button>
+    </a>
+    <form action="/movies/delete/<%=pelicula.id%>?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-danger">Borrar</button>
+    </form>
+</body>
+</html>

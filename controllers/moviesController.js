@@ -15,13 +15,12 @@ module.exports = {
       
     },
     detail:(req,res)=>{
-        db.Peliculas.findByPk({
-            where:{
-                id: req.params.id
-            }
-        })
+        db.Peliculas.findByPk(req.params.id)
         .then(pelicula=>{
-            res.send(pelicula)
+            res.render("viewDetail",{
+                title: 'Pelicula detallada',
+                pelicula: pelicula
+            })
         })
         .catch(e=>{
             res.send(e)
@@ -43,6 +42,20 @@ module.exports = {
         }),
         res.redirect('/movies')
     },
+
+    viewEdit:(req,res)=>{
+        db.Peliculas.findByPk(req.params.id)
+        .then(function(pelicula){
+            res.render("editMovie",{
+                title: '"Editar',
+                pelicula: pelicula
+            })
+        })
+        .catch(e=>{
+            res.send(e)
+        })
+    },
+
     edit:(req,res)=>{
         db.Peliculas.update({
             title: req.body.title,
@@ -56,6 +69,8 @@ module.exports = {
                 id: req.params.id   
             }
         })
+
+        res.redirect('/movies/detail/' + req.params.id)
     },
     delete:(req,res)=>{
         db.Peliculas.destroy({
@@ -63,5 +78,6 @@ module.exports = {
                 id: req.params.id
             }
         })
+        res.redirect('/movies')
     }
 }
