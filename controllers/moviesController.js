@@ -75,12 +75,36 @@ module.exports = {
         res.redirect('/movies/detail/' + req.params.id)
     },
     delete:(req,res)=>{
-        db.Peliculas.destroy({
+        db.actor_movie.destroy({
             where:{
-                id: req.params.id
+                movie_id : req.params.id
             }
         })
-        res.redirect('/movies')
+        .then(result => console.log('Eliminada la tabla pivot'))
+        .catch(e => res.send(e))
+
+        db.Actores.update({
+            favorite_movie_id: null,
+        },
+           { where:{
+                favorite_movie_id : req.params.id
+            }
+        })
+        .then(
+            db.Peliculas.destroy({
+                where:{
+                    id: req.params.id
+                }
+            })
+            .then(result=>{
+                console.log('Pelicula Eliminada')
+                res.redirect('/movies')
+            })
+            .catch(e => res.send(e))    
+        )
+        .catch(e => res.send(e))
+
+        
     },
     new:(req,res)=>{
         db.Peliculas.findAll({

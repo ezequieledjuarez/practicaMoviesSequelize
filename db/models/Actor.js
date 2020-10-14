@@ -23,6 +23,7 @@ module.exports = (sequelize,dataTypes) => {
         },
         favorite_movie_id : {
             type : dataTypes.INTEGER(10),
+            alllowNull: true,
             defaultValue: null
         },
         country : {
@@ -52,7 +53,7 @@ module.exports = (sequelize,dataTypes) => {
 
         Actor.belongsTo(models.Peliculas,{
             as: 'favorita',
-            foreignKey: 'favorite_movie_id'
+            foreignKey: 'favorite_movie_id' 
         })
     }
     return Actor
