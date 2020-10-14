@@ -75,15 +75,8 @@ module.exports = {
         res.redirect('/movies/detail/' + req.params.id)
     },
     delete:(req,res)=>{
-        db.actor_movie.destroy({
-            where:{
-                movie_id : req.params.id
-            }
-        })
-        .then(result => console.log('Eliminada la tabla pivot'))
-        .catch(e => res.send(e))
 
-        db.Actores.update({
+       let nullFavorita = db.Actores.update({
             favorite_movie_id: null,
         },
            { where:{
@@ -91,6 +84,20 @@ module.exports = {
             }
         })
         .then(
+            console.log('valores Nulleados')
+        )
+        .catch(e => res.send(e))
+
+        let deletePivot = db.actor_movie.destroy({
+          where:{
+                movie_id : req.params.id
+            }
+        })
+        .then(result => console.log('Eliminada la tabla pivot'))
+        .catch(e => res.send(e))
+
+        Promise.all([nullFavorita,deletePivot])
+        .then(([nullFavorita, deletePivot])=>{
             db.Peliculas.destroy({
                 where:{
                     id: req.params.id
@@ -101,11 +108,9 @@ module.exports = {
                 res.redirect('/movies')
             })
             .catch(e => res.send(e))    
-        )
-        .catch(e => res.send(e))
-
-        
+        })
     },
+
     new:(req,res)=>{
         db.Peliculas.findAll({
             limit: 5,
